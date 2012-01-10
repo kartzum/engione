@@ -445,6 +445,15 @@ function core_add_page_to_query_string($page) {
 	return $result;
 }
 
+/**
+ * Returns sites path with extended path.
+ * @param string $p path.
+ * @return string path.
+ */
+function core_get_sites_path($p) {
+	return core_get_path(CORE_SITES_PATH.$p);
+}
+
 /*
  * Finish - Core API Extended Functions.
  */
