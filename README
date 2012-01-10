@@ -46,6 +46,7 @@ Templates module provides the simplest mechanism of templates.
 Zero represents templates for other sites.
 Start.php – request controller.
 Entry_point.php and index.php run core. 
+
 Templates rules are simple. Template based on html and contains parts. Any part starts with 
 “{%” in attributes or “<!--{%” in other places and finish with “%}” or “%}-->”. 
 There are functions between tags “b”, “f”, “l”, ”r”. “b” function just insert value by name from data. 
@@ -53,6 +54,7 @@ There are functions between tags “b”, “f”, “l”, ”r”. “b” function just insert va
 “r” function repeat given part. For samples see default site.
 All modules or sites may contain resources. Just there is resources.xml (or resources(Code of language).xml) 
 in resources directory.
+
 Reserved parameters for core in url. “s” – contains code of site. 
 “p” – contains code of page in site. “l” – contains code of language. 
 “u” – contains code of command to core (“r” command resets core). 
