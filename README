@@ -3,11 +3,4 @@ Engione is a web framework based on micro core principle.
 Why Engione? A lot of brilliant frameworks in web based on best practice and use famous patterns. 
 But many of these ones contain ton code that do not use in real cases. Extends are unclear. 
 Inner processes are closed. Some lines of real code are wrapped with boring infrastructure. 
-Engione is not silver bullet, of course, but just implements some ideas for fun and fast web coding. 
-  
-Engione separates into two parts: modules and sites. Modules provide data and logic. 
-Sites represent information from modules. There are flows between modules and sites. It just MVC. 
-But there is dynamic control of invocations between parts. Big brother of all modules is micro core module.
-Micro core, just core, gets request from browser (or another subject) finds site, 
-calls and site returns map of modules. Core executes all modules from map and renders this information 
-with site’s specific behavior. It is simple but powerful.
+Engione is not silver bullet, of course, but just implements some ideas for fun and fast web coding.
