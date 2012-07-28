@@ -1,0 +1,7 @@
+<!DOCTYPE html>
+<html>
+	<head>		
+		<title><%c(lcore_r,title)%></title>
+	</head>
+	<body></body>
+</html>
