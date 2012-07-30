@@ -265,11 +265,11 @@ function lcore_r(&$parameters=array()) {
 	$default = $parameters[1];	
 	$start_set = $_SESSION[LCORE_DATA][LCORE_PLUGINS_RESOURCES];	
 	foreach($start_set as $k_t => $k_v) {
-		$result = lcore_get_resource_by_set($k_v, lcore_locale());
+		$result = lcore_get_resource_by_set($k_v, lcore_locale(), $key);
 		if($result !== null) {
 			return $result;
 		} else {
-			$result = lcore_get_resource_by_set($k_v, "");
+			$result = lcore_get_resource_by_set($k_v, "", $key);
 			if($result !== null) {
 				return $result;
 			}
@@ -278,7 +278,7 @@ function lcore_r(&$parameters=array()) {
 	return $default;
 }
 
-function lcore_get_resource_by_set($set, $l) {	
+function lcore_get_resource_by_set($set, $l, $key) {	
 	foreach($set as $key_inner => $value_inner) {
 		$resource_file = $value_inner;
 		if($l !== "") {
