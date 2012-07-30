@@ -1,61 +1,274 @@
 <?php
+/**
+ * Framework functions.
+ */
+
 require_once "lcore_i.php";
 
+/* Base. Start.*/
+
+/**
+ * Represents ".".
+ */
 define("LCORE_DOT", ".");
+
+/**
+ * Represents "..". 
+ */
 define("LCORE_DOT2", "..");
+
+/**
+ * Represents "/". 
+ */
 define("LCORE_SLASH", "/");
+
+/**
+ * Represents ".php". 
+ */
 define("LCORE_PHP", ".php");
+
+/**
+ * Represents "_". 
+ */
 define("LCORE__", "_");
+
+/**
+ * Represents "&". 
+ */
 define("LCORE_AMPERSAND", "&");
+
+/**
+ * Represents "?". 
+ */
 define("LCORE_QUESTION", "?");
+
+/**
+ * Represents "=". 
+ */
 define("LCORE_EQUAL", "=");
+
+/**
+ * Represents ".xml". 
+ */
 define("LCORE_XML", ".xml");
 
+/* Base. Finish.*/
+
+/* Common. Start.*/
+
+/**
+ * Key of configuration data in session. 
+ */
 define("LCORE_START_CONFIGURATION", "start_configuration");
+
+/**
+ * Key of framework path. 
+ */
 define("LCORE_START_ROOT_PATH", "start_root_path");
+
+/**
+ * Key of application path. 
+ */
 define("LCORE_START_PATH", "start_path");
+
+/**
+ * Key of data of framework in session. 
+ */
 define("LCORE_DATA", "lcore_data");
+
+/**
+ * Key of default plugin in session. 
+ */
 define("LCORE_DEFAULT_PLUGIN", "default_plugin");
+
+/**
+ * Key of default theme in session. 
+ */
 define("LCORE_DEFAULT_THEME", "default_theme");
 
+/* Common. Finish.*/
+
+/* Plugins. Start.*/
+
+/**
+ * Key of plugins in session. 
+ */
 define("LCORE_PLUGINS", "plugins");
+
+/**
+ * Key of plugins path. 
+ */
 define("LCORE_PLUGINS_PATH", "plugins");
+
+/**
+ * Key of templates path. 
+ */
 define("LCORE_PLUGINS_PATH_TEMPLATES", "templates");
+
+/**
+ * Key of templates in session. 
+ */
 define("LCORE_PLUGINS_TEMPLATES", "plugins_templates");
+
+/**
+ * Key of plugins start data in session. 
+ */
 define("LCORE_PLUGINS_START_DATA", "plugins_start_data");
+
+/**
+ * Key of themes path. 
+ */
 define("LCORE_PLUGINS_PATH_THEMES", "themes");
+
+/**
+ * Key of resources path. 
+ */
 define("LCORE_PLUGINS_PATH_RESOURCES", "resources");
+
+/**
+ * Key of resources in session. 
+ */
 define("LCORE_PLUGINS_RESOURCES", "plugins_resources");
 
+/* Plugins. Finish.*/
+
+/* Descriptor. Start. */
+
+/**
+ * Descriptor key. 
+ */
 define("LCORE_DESCRIPTOR_KEY", "descriptor_key");
+
+/**
+ * Descriptor path. 
+ */
 define("LCORE_DESCRIPTOR_PATH", "descriptor_path");
 
+/* Descriptor. Finish. */
+
+/* Plugin. Start.*/
+
+/**
+ * Plugin key. 
+ */
 define("LCORE_PLUGIN_KEY", "plugin_key");
+
+/**
+ * Plugin path. 
+ */
 define("LCORE_PLUGIN_PATH", "plugin_path");
+
+/**
+ * Plugin full path. 
+ */
 define("LCORE_PLUGIN_FULL_PATH", "plugin_full_path");
+
+/**
+ * Plugin start function name. 
+ */
 define("LCORE_PLUGIN_FUNCTION_START", "start");
+
+/**
+ * Plugin execute function name. 
+ */
 define("LCORE_PLUGIN_FUNCTION_EXECUTE", "execute");
+
+/**
+ * Plugin reset function name. 
+ */
 define("LCORE_PLUGIN_FUNCTION_RESET", "reset");
+
+/**
+ * Plugin key in query. 
+ */
 define("LCORE_ENTITY_KEY", "e");
+
+/**
+ * Key of result for text data. 
+ */
 define("LCORE_PLUGIN_RESULT_TEXT", "text");
+
+/**
+ * Localization key in query. 
+ */
 define("LCORE_LOCALIZATION_KEY", "l");
+
+/**
+ * Area key in query. 
+ */
 define("LCORE_AREA_KEY", "a");
 
+/* Plugin. Finish.*/
+
+/* Command. Start. */
+
+/**
+ * Command key in query. 
+ */
 define("LCORE_COMMAND_KEY", "u");
+
+/**
+ * Command "reset" in query. 
+ */
 define("LCORE_COMMAND_RESET_KEY", "r");
 
+/* Command. Finish. */
+
+/* Parameters. Start. */
+
+/**
+ * Key of callback parameter. 
+ */
 define("LCORE_MAIN_PARAMETERS_CALLBACK", "callback");
+
+/**
+ * Key of common parameter from framework. 
+ */
 define("LCORE_MAIN_PARAMETERS_COMMON", "common");
+
+/**
+ * Key of common data parameter from framework. 
+ */
 define("LCORE_MAIN_PARAMETERS_COMMON_DATA", "common_data");
+
+/**
+ * Key of in parameter. 
+ */
 define("LCORE_MAIN_PARAMETERS_IN", "in");
+
+/**
+ * Key of session parameter. 
+ */
 define("LCORE_MAIN_PARAMETERS_SESSION", "session");
+
+/**
+ * Key of theme. 
+ */
 define("LCORE_MAIN_PARAMETERS_THEME", "theme");
+
+/**
+ * Key of themes. 
+ */
 define("LCORE_MAIN_PARAMETERS_THEMES", "themes");
 
+/* Parameters. Finish. */
+
+/* Other. Start. */
+
+/**
+ * Key of resource key. 
+ */
 define("LCORE_RESOURCES_KEY", "key");
+
+/* Other. Finish. */
 
 /* lcore. Common Functions. Start. */
 
+/** 
+ * Returns query parameter by key. Can return null.
+ * @param $key key.
+ * @return value.
+ */
 function lcore_get_query_parameter($key) {
 	if(isset($_GET[$key])) {
 		return $_GET[$key];
@@ -63,6 +276,10 @@ function lcore_get_query_parameter($key) {
 	return null;
 }
 
+/**
+ * Executes framework.
+ * @return void.
+ */
 function lcore_go() {	
 	if(!lcore_is_start()) {
 		lcore_start();		
@@ -71,6 +288,10 @@ function lcore_go() {
 	}
 }
 
+/**
+ * Prepares start. Runs only one for session.
+ * @return void.
+ */
 function lcore_start() {
 	$_SESSION[LCORE_DATA] = array(LCORE_PLUGINS => array());
 	$_SESSION[LCORE_DATA][LCORE_PLUGINS_TEMPLATES] = array();
@@ -80,6 +301,10 @@ function lcore_start() {
 		lcore_plugins_call_function(LCORE_PLUGIN_FUNCTION_START);			
 }
 
+/**
+ * Runs query.
+ * @return void.
+ */
 function lcore_execute() {	
 	lcore_plugins_include();
 	$comman_key = lcore_get_query_parameter(LCORE_COMMAND_KEY);
@@ -90,11 +315,19 @@ function lcore_execute() {
 	lcore_dispatch();
 }
 
+/**
+ * Resets all plugins.
+ * @return void.
+ */
 function lcore_reset() {	
 	lcore_plugins_call_function(LCORE_PLUGIN_FUNCTION_RESET);
 	unset($_SESSION[LCORE_DATA]);
 }
 
+/**
+ * Returns true if framework is started.
+ * @return flag.
+ */
 function lcore_is_start() {	
 	return !empty($_SESSION[LCORE_DATA]);
 }
@@ -103,14 +336,26 @@ function lcore_is_start() {
 
 /* lcore. Define Functions. Start. */
 
+/**
+ * Returns path of framewok.
+ * @return path.
+ */
 function lcore_start_root_path() {
 	return $_SESSION[LCORE_START_CONFIGURATION][LCORE_START_ROOT_PATH];
 }
 
+/**
+ * Returns path of application.
+ * @return path.
+ */
 function lcore_start_path() {
 	return $_SESSION[LCORE_START_CONFIGURATION][LCORE_START_PATH];
 }
 
+/**
+ * Returns default plugin key.
+ * @return key.
+ */
 function lcore_default_plugin() {
 	return $_SESSION[LCORE_START_CONFIGURATION][LCORE_DEFAULT_PLUGIN];
 }
@@ -119,10 +364,20 @@ function lcore_default_plugin() {
 
 /* lcore. Path Functions. Start. */
 
+/**
+ * Returns path of framework + given path.
+ * @param $path path.
+ * @return path.
+ */
 function lcore_get_root_path($path) {
 	return lcore_start_root_path().$path;
 }
 
+/**
+ * Returns path of application + given path.
+ * @param $path path.
+ * @return path.
+ */
 function lcore_get_path($path) {
 	return lcore_start_path().$path;
 }
@@ -131,17 +386,30 @@ function lcore_get_path($path) {
 
 /* lcore. Plugins. Start. */
 
+/**
+ * Loads all plugins.
+ * @return void.
+ */
 function lcore_plugins_load() {
 	lcore_plugins_register(lcore_get_root_path(LCORE_PLUGINS_PATH));
 	lcore_plugins_register(lcore_get_path(LCORE_PLUGINS_PATH));
 }
 
+/**
+ * Includes all plugins.
+ * @return void.
+ */
 function lcore_plugins_include() {
 	foreach($_SESSION[LCORE_DATA][LCORE_PLUGINS] as $k => $v) {
 		require_once $v[LCORE_PLUGIN_FULL_PATH];
 	}
 }
 
+/**
+ * Registers all plugins.
+ * @param $path root of plugins.
+ * @return void.
+ */
 function lcore_plugins_register($path) {
 	$descriptors = lcore_get_descriptors($path);
 	foreach($descriptors as $k => $v) {		
@@ -151,10 +419,20 @@ function lcore_plugins_register($path) {
 	}
 }
 
+/**
+ * Returns true if plugin is registered.
+ * @param $key key.
+ * @return flag.
+ */
 function lcore_plugin_is_register($key) {
 	return in_array($key, $_SESSION[LCORE_DATA][LCORE_PLUGINS]);
 }
 
+/**
+ * Registers plugin. 
+ * @param $descriptor descriptor.
+ * @return void.
+ */
 function lcore_plugin_register($descriptor) {	
 	$holder = array();
 	$holder[LCORE_PLUGIN_KEY] = $descriptor[LCORE_DESCRIPTOR_KEY];
@@ -168,6 +446,11 @@ function lcore_plugin_register($descriptor) {
 	$_SESSION[LCORE_DATA][LCORE_PLUGINS][$descriptor[LCORE_DESCRIPTOR_KEY]] = $holder;
 }
 
+/**
+ * Returns descriptors for path. 
+ * @param $path path.
+ * @return array of descriptors.
+ */
 function lcore_get_descriptors($path) {
 	$result = array();
 	if(file_exists($path) === false) {
@@ -184,10 +467,23 @@ function lcore_get_descriptors($path) {
 	return $result;
 }
 
+/**
+ * Calls plugin function.
+ * @param $plugin_key key.
+ * @param $function_name name.
+ * @param $parameters parameters.
+ * @return result.
+ */
 function lcore_plugin_call_function($plugin_key, $function_name, &$parameters=array()) {
 	return lcore_call_function($plugin_key.LCORE__.$function_name, $parameters);
 }
 
+/**
+ * Calls function from all plugins. 
+ * @param $function_name function name.
+ * @param $parameters parameters.
+ * @return results as array. 
+ */
 function lcore_plugins_call_function($function_name, &$parameters=array()) {
 	$result = array();
 	foreach($_SESSION[LCORE_DATA][LCORE_PLUGINS] as $k => $v) {
@@ -197,6 +493,13 @@ function lcore_plugins_call_function($function_name, &$parameters=array()) {
 	return $result;
 }
 
+/**
+ * Loads descriptors (for templates, resources...). 
+ * @param $descriptor descriptor. 
+ * @param $path_pattern path.
+ * @param $data_key key in session.
+ * @return void.
+ */
 function lcore_load_descriptors($descriptor, $path_pattern, $data_key) {
 	$path = $descriptor[LCORE_DESCRIPTOR_PATH].LCORE_SLASH.$path_pattern;
 	$descriptors = lcore_get_descriptors($path); 
@@ -214,6 +517,10 @@ function lcore_load_descriptors($descriptor, $path_pattern, $data_key) {
 
 /* lcore. Dispatch. Start. */
 
+/**
+ * Executes framework.
+ * @return void.
+ */
 function lcore_dispatch() {
 	$e = lcore_get_query_parameter(LCORE_ENTITY_KEY);
 	if($e === null) {
@@ -244,10 +551,18 @@ function lcore_dispatch() {
 
 /* lcore. Session Functions. Start. */
 
+/**
+ * Returns theme.
+ * @return theme.
+ */
 function lcore_theme() {
 	return $_SESSION[LCORE_START_CONFIGURATION][LCORE_DEFAULT_THEME];
 }
 
+/**
+ * Returns locale.
+ * @return locale.
+ */
 function lcore_locale() {
 	$v = lcore_get_query_parameter(LCORE_LOCALIZATION_KEY);
 	if($v === null) {
@@ -260,6 +575,11 @@ function lcore_locale() {
 
 /* lcore. Resources Functions. Start. */
 
+/**
+ * Returns value from resources.
+ * @param $parameters parameters (0 - key, 1 - default value).
+ * @return value.
+ */
 function lcore_r(&$parameters=array()) {
 	$key = $parameters[0]; 
 	$default = $parameters[1];	
@@ -278,6 +598,13 @@ function lcore_r(&$parameters=array()) {
 	return $default;
 }
 
+/**
+ * Returns value from resources. Can return null. 
+ * @param $set paths.
+ * @param $l key of locale.
+ * @param $key key.
+ * @return value.
+ */
 function lcore_get_resource_by_set($set, $l, $key) {	
 	foreach($set as $key_inner => $value_inner) {
 		$resource_file = $value_inner;
@@ -293,6 +620,12 @@ function lcore_get_resource_by_set($set, $l, $key) {
 	return null;
 }
 
+/**
+ * Returns value from resource. 
+ * @param $path path.
+ * @param $key key.
+ * @return value.
+ */
 function lcore_get_resource($path, $key) {	
 	if(!file_exists($path)) {
 		continue;
@@ -313,6 +646,11 @@ function lcore_get_resource($path, $key) {
 
 /* lcore. Links Functions. Start. */
 
+/**
+ * Prepares link.
+ * @param $parameters parameters.
+ * @return link.
+ */
 function lcore_l(&$parameters=array()) {
 	$r = $parameters[0]; /* Start Resource. */
 	$e = $parameters[1]; /* Entity - Plugin. */

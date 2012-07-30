@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+	<!-- Title of page.-->
 	<resource key="start_title">start</resource>
 </resources>

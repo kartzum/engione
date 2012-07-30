@@ -1,11 +1,36 @@
 <?php
+/**
+ * start plugin. 
+ */
+
+/* Public. Start. */
+
+/**
+ * Key of plugin. 
+ */
 define("START_KEY", "start");
+
+/**
+ * Version of plugin.
+ */
 define("START_VERSION", "next");
- 
+
+/* Public. Fiinsh. */
+
+/**
+ * Starts plugin. 
+ * @param $parameters parameters.
+ * @return data.
+ */
 function start_start(&$parameters=array()) {
 	return array("key" => START_KEY, "version" => START_VERSION);	
 }
 
+/**
+ * Executes plugin. 
+ * @param $parameters parameters.
+ * @return results.
+ */
 function start_execute(&$parameters=array()) {
 	$result = null;
 	
@@ -34,5 +59,11 @@ function start_execute(&$parameters=array()) {
 	return $result;
 }
 
-function start_reset(&$parameters=array()) {	
+/** 
+ * Resets plugin.
+ * @param $parameters parameters.
+ * @return result.
+ */
+function start_reset(&$parameters=array()) {
+	return array();	
 }

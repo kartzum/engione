@@ -1,27 +1,106 @@
 <?php
+/**
+ * ltext plugin.
+ */
+
+/* Public. Start. */
+
+/**
+ * Key of plugin. 
+ */
 define("LTEXT_KEY", "ltext");
+
+/**
+ * Version of plugin.
+ */
 define("LTEXT_VERSION", "next");
 
+/* Public. Fiinsh. */
+
+/* Common. Start. */
+
+/**
+ * Represents index. 
+ */
 define("LTEXT_LEX_INDEX", "i");
+
+/**
+ * Represents value. 
+ */
 define("LTEXT_LEX_VALUE", "l");
+
+/**
+ * Represents exec flag. 
+ */
 define("LTEXT_LEX_EXECUTEABLE", "e");
+
+/**
+ * Represents raw value. 
+ */
 define("LTEXT_LEX_RAW", "r");
+
+/**
+ * Represents name. 
+ */
 define("LTEXT_LEX_NAME", "n");
+
+/**
+ * Represents data. 
+ */
 define("LTEXT_LEX_DATA", "d");
+
+/**
+ * Represents data bind function. 
+ */
 define("LTEXT_LEX_DATA_BIND_FUNCTION", "d");
+
+/**
+ * Represents include function. 
+ */
 define("LTEXT_LEX_INCLUDE_FUNCTION", "i");
+
+/**
+ * Represents r include function. 
+ */
 define("LTEXT_LEX_INCLUDE_R_FUNCTION", "ir");
+
+/**
+ * Represents theme path function. 
+ */
 define("LTEXT_LEX_PATH_T_FUNCTION", "pt");
+
+/**
+ * Represents call function. 
+ */
 define("LTEXT_LEX_CALL_FUNCTION", "c");
 
+/* Common. Finish. */
+
+/* Base. Start. */
+
+/**
+ *  Represents "/".
+ */
 define("LTEXT_SLASH", "/");
+
+/* Base. Finish. */
 
 /* ltext. Common Functions. Start. */
 
+/** 
+ * Starts plugin.
+ * @param $parameters parameters.
+ * @return data.
+ */
 function ltext_start(&$parameters=array()) {
 	return array("key" => LTEXT_KEY, "version" => LTEXT_VERSION);	
 }
 
+/**
+ * Executes plugin. 
+ * @param $parameters parameters.
+ * @return results.
+ */
 function ltext_execute(&$parameters=array()) {	
 	$result = array();
 	$empty_result = array(
@@ -51,11 +130,23 @@ function ltext_execute(&$parameters=array()) {
 	return $result;
 }
 
+/** 
+ * Resets plugin.
+ * @param $parameters parameters.
+ * @return result.
+ */
 function ltext_reset(&$parameters=array()) {	
+	return array();
 }
 
 /* ltext. Common Functions. Finish. */
 
+/**
+ * Returns path of template. Can return null. 
+ * @param $key key.
+ * @param $data data.
+ * @return path.
+ */
 function ltext_get_template_path($key, $data) {
 	foreach($data as $k_t => $k_v) {
 		foreach($k_v as $key_inner => $value_inner) {
@@ -67,6 +158,13 @@ function ltext_get_template_path($key, $data) {
 	return null;
 }
 
+/**
+ * Parses template. 
+ * @param $common data.
+ * @param $key key.
+ * @param $parameters parameters.
+ * @return text. 
+ */
 function ltext_parse_template($common, $key, &$parameters=array()) {	
 	$template_path = ltext_get_path($common, $key);
 	$contents = file_get_contents($template_path, FILE_USE_INCLUDE_PATH);	
@@ -75,11 +173,26 @@ function ltext_parse_template($common, $key, &$parameters=array()) {
 		$common, $key, $template_path, $contents, $lexs, $parameters);	
 }
 
+/**
+ * Parses template. 
+ * @param $common data.
+ * @param $key key.
+ * @param $template_path path.
+ * @param $contents contents.
+ * @param $lexs lexs.
+ * @param $parameters parameters.
+ * @return text.
+ */
 function ltext_parse_template_with_lexs(
 		$common, $key, $template_path, $contents, &$lexs, &$parameters=array()) {		
 	return ltext_bind($common, $key, $template_path, $contents, $lexs, $parameters);	
 }
 
+/**
+ * Returns lexs. 
+ * @param $contents contents.
+ * @return lexs.
+ */
 function ltext_get_lexs($contents) {
 	$result = array();
 	$n = 0;
@@ -116,6 +229,16 @@ function ltext_get_lexs($contents) {
 	return $result; 
 }
 
+/**
+ * Binds data.
+ * @param $common data.
+ * @param $key key.
+ * @param $template_path path.
+ * @param $contents contents.
+ * @param $lexs lexs.
+ * @param $parameters parameters.
+ * @return text.
+ */
 function ltext_bind($common, $key, $template_path, $contents, $lexs, &$parameters) {
 	$result = "";
 	$start = 0;	
@@ -158,6 +281,11 @@ function ltext_bind($common, $key, $template_path, $contents, $lexs, &$parameter
 	return $result;
 }
 
+/**
+ * Parses lex. 
+ * @param $raw data.
+ * @return array of pure data.
+ */
 function ltext_parse_lex($raw) {
 	$result = array();
 	$s = strpos($raw, "(");
@@ -169,15 +297,32 @@ function ltext_parse_lex($raw) {
 	return $result;
 }
 
+/**
+ * Returns path. 
+ * @param $common data.
+ * @param $key key.
+ * @return path.
+ */
 function ltext_get_path($common, $key) {
 	return ltext_get_template_path($key, $common["common_data"]["plugins_templates"]);	
 }
 
+/**
+ * Returns root of path. 
+ * @param $template_path path.
+ * @return root of path.
+ */
 function ltext_get_root($template_path) {
 	$template_info = pathinfo($template_path);
 	return dirname($template_info["dirname"]);	
 }
 
+/**
+ * Calls function. 
+ * @param $function function name.
+ * @param $parameters parameters.
+ * @return result. 
+ */
 function ltext_call_function($function, &$parameters=array()) {
 	return call_user_func($function, $parameters);
 }

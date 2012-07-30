@@ -1,18 +1,69 @@
 <?php
+/**
+ * Interface function of framework.
+ */
+
+/**
+ * Key of callback parameter. 
+ */
 define("LCORE_PARAMETERS_CALLBACK", "callback");
+
+/**
+ * Key of common parameter of framework.
+ */
 define("LCORE_PARAMETERS_COMMON", "common");
+
+/**
+ * Key of in parameter. 
+ */
 define("LCORE_PARAMETERS_IN", "in");
+
+/**
+ * Key of function parameter. 
+ */
 define("LCORE_PARAMETERS_FUNCTION", "function");
+
+/**
+ * Key of activity parameter. 
+ */
 define("LCORE_PARAMETERS_ACTIVITY", "activity");
+
+/**
+ * Key of ok activity. 
+ */
 define("LCORE_PARAMETERS_OK", "ok");
+
+/**
+ * Key of call activity. 
+ */
 define("LCORE_PARAMETERS_CALL", "call");
+
+/**
+ * Key of data. 
+ */
 define("LCORE_PARAMETERS_DATA", "data");
+
+/**
+ * Key of response. 
+ */
 define("LCORE_PARAMETERS_RESPONSE", "response");
 
+/**
+ * Calls function.
+ * @param $function function name.
+ * @param $parameters parameters.
+ * @return results.
+ */
 function lcore_call_function($function, &$parameters=array()) {	
 	return call_user_func($function, $parameters);
 }
 
+/**
+ * Executes plugin function.
+ * @param $function function name.
+ * @param $parameters parameters (array with keys: "common", "in", "callback").
+ * @return results.
+ */
 function lcore_d($function, &$parameters=array()) {
 	$result = array();
 	$callback = $parameters[LCORE_PARAMETERS_CALLBACK];
