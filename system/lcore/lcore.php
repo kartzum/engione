@@ -537,14 +537,33 @@ function lcore_dispatch() {
 			),
 		LCORE_MAIN_PARAMETERS_IN => array(),
 		LCORE_MAIN_PARAMETERS_CALLBACK => array());
-	$result = lcore_d($e.LCORE__.LCORE_PLUGIN_FUNCTION_EXECUTE, $call_parameters);
-	foreach ($result as $r_k => $r_v) {
+	echo lcore_get_text_from_data(lcore_d($e.LCORE__.LCORE_PLUGIN_FUNCTION_EXECUTE, $call_parameters));		
+}
+
+/**
+ * Executes plugin and return text.
+ * @param $parameters 0 - plugin function, 1 - parameters.
+ * @return text.
+ */
+function lcore_dt(&$parameters=array()) {
+	return lcore_get_text_from_data(lcore_d($parameters[0], $parameters[1]));	
+}
+
+/**
+ * Returns text data from result of plugin call.
+ * @param $data data.
+ * @return text.
+ */
+function lcore_get_text_from_data($data) {
+	$result = "";
+	foreach ($data as $r_k => $r_v) {
 		foreach ($r_v as $k => $v) {
 			if($k === LCORE_PLUGIN_RESULT_TEXT) {
-				echo $v;
+				$result = $result.$v;
 			}
 		}
-	}	
+	}
+	return $result;
 }
 
 /* lcore. Dispatch. Finish. */

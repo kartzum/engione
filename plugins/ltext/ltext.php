@@ -74,6 +74,11 @@ define("LTEXT_LEX_PATH_T_FUNCTION", "pt");
  */
 define("LTEXT_LEX_CALL_FUNCTION", "c");
 
+/**
+ * Represents call function of core - lcore_dt. 
+ */
+define("LTEXT_LEX_CALL_TEXT_FUNCTION", "ct");
+
 /* Common. Finish. */
 
 /* Base. Start. */
@@ -269,6 +274,16 @@ function ltext_bind($common, $key, $template_path, $contents, $lexs, &$parameter
 			$call_function = $l_values[LTEXT_LEX_DATA][0];
 			$call_parameters = $l_values[LTEXT_LEX_DATA][1];
 			$l_data = ltext_call_function($call_function, $parameters[$call_parameters]);			
+		} else if($l_name === LTEXT_LEX_CALL_TEXT_FUNCTION) {			
+			$call_ct_l = $l_values[LTEXT_LEX_DATA][0]."_execute";
+			$call_ct_p = $parameters[$l_values[LTEXT_LEX_DATA][1]];
+			$call_ct_parameters = array(
+				"common" => $common,
+				"in" => $call_ct_p,
+				"callback" => array() 	
+			);
+			$call_ct_p = array($call_ct_l, $call_ct_parameters);
+			$l_data = ltext_call_function("lcore_dt", $call_ct_p);			
 		}	
 		if($l_data !== null) {
 			$t = substr($contents, $start, $s - $start);
