@@ -283,9 +283,8 @@ function lcore_get_query_parameter($key) {
 function lcore_go() {	
 	if(!lcore_is_start()) {
 		lcore_start();		
-	} else {
-		lcore_execute();
 	}
+	lcore_execute();
 }
 
 /**
