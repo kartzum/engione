@@ -189,9 +189,9 @@ define("LCORE_ENTITY_KEY", "e");
 define("LCORE_PLUGIN_RESULT_TEXT", "text");
 
 /**
- * Localization key in query. 
+ * Locale key in query. 
  */
-define("LCORE_LOCALIZATION_KEY", "l");
+define("LCORE_LOCALE_KEY", "l");
 
 /**
  * Area key in query. 
@@ -250,6 +250,16 @@ define("LCORE_MAIN_PARAMETERS_THEME", "theme");
  * Key of themes. 
  */
 define("LCORE_MAIN_PARAMETERS_THEMES", "themes");
+
+/**
+ * Query parameters key. 
+ */
+define("LCORE_MAIN_PARAMETERS_QUERY_PARAMETERS", "query_parameters");
+
+/**
+ * Query parameters - all key. 
+ */
+define("LCORE_MAIN_PARAMETERS_QUERY_PARAMETERS_ALL", "$");
 
 /* Parameters. Finish. */
 
@@ -524,10 +534,17 @@ function lcore_dispatch() {
 	$e = lcore_get_query_parameter(LCORE_ENTITY_KEY);
 	if($e === null) {
 		$e = lcore_default_plugin();
-	}	
+	}
+	$query_parameters = array(
+		LCORE_MAIN_PARAMETERS_QUERY_PARAMETERS_ALL => lcore_copy_get(),
+		LCORE_ENTITY_KEY => lcore_get_query_parameter(LCORE_ENTITY_KEY),
+		LCORE_LOCALE_KEY => lcore_get_query_parameter(LCORE_LOCALE_KEY),
+		LCORE_AREA_KEY => lcore_get_query_parameter(LCORE_AREA_KEY)
+	);	
 	$session_data = array(
 		LCORE_MAIN_PARAMETERS_THEME => lcore_theme(),
-		LCORE_MAIN_PARAMETERS_THEMES => LCORE_PLUGINS_PATH_THEMES
+		LCORE_MAIN_PARAMETERS_THEMES => LCORE_PLUGINS_PATH_THEMES,
+		LCORE_MAIN_PARAMETERS_QUERY_PARAMETERS => $query_parameters
 	);
 	$call_parameters = array(
 		LCORE_MAIN_PARAMETERS_COMMON => array(
@@ -565,6 +582,18 @@ function lcore_get_text_from_data($data) {
 	return $result;
 }
 
+/**
+ * Copies $_GET.
+ * @return array.
+ */
+function lcore_copy_get() {
+	$result = array();
+	foreach ($_GET as $k => $v) {
+		$result[$k] = $v;
+	}
+	return $result;
+}
+
 /* lcore. Dispatch. Finish. */
 
 /* lcore. Session Functions. Start. */
@@ -582,7 +611,7 @@ function lcore_theme() {
  * @return locale.
  */
 function lcore_locale() {
-	$v = lcore_get_query_parameter(LCORE_LOCALIZATION_KEY);
+	$v = lcore_get_query_parameter(LCORE_LOCALE_KEY);
 	if($v === null) {
 		$v = "";
 	}	
@@ -680,7 +709,7 @@ function lcore_l(&$parameters=array()) {
 		$start = LCORE_QUESTION;
 	}	
 	return $r.$start.LCORE_ENTITY_KEY.LCORE_EQUAL.$e.
-		LCORE_AMPERSAND.LCORE_LOCALIZATION_KEY.LCORE_EQUAL.$l.
+		LCORE_AMPERSAND.LCORE_LOCALE_KEY.LCORE_EQUAL.$l.
 		LCORE_AMPERSAND.LCORE_AREA_KEY.LCORE_EQUAL.$a.$t;	
 }
 

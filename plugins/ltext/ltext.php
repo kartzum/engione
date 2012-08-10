@@ -6,16 +6,16 @@
 /* Public. Start. */
 
 /**
- * Key of plugin. 
+ * Plugin version. 
  */
 define("LTEXT_KEY", "ltext");
 
 /**
- * Version of plugin.
+ * Plugin key.
  */
 define("LTEXT_VERSION", "next");
 
-/* Public. Fiinsh. */
+/* Public. Finish. */
 
 /* Common. Start. */
 

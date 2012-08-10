@@ -6,16 +6,16 @@
 /* Public. Start. */
 
 /**
- * Key of plugin. 
+ * Plugin key. 
  */
 define("START_KEY", "start");
 
 /**
- * Version of plugin.
+ * Plugin version.
  */
 define("START_VERSION", "next");
 
-/* Public. Fiinsh. */
+/* Public. Finish. */
 
 /**
  * Starts plugin. 
