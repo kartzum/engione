@@ -261,6 +261,16 @@ define("LCORE_MAIN_PARAMETERS_QUERY_PARAMETERS", "query_parameters");
  */
 define("LCORE_MAIN_PARAMETERS_QUERY_PARAMETERS_ALL", "$");
 
+/**
+ * Key of script name. 
+ */
+define("LCORE_MAIN_PARAMETERS_SCRIPT_NAME", "script_name");
+
+/**
+ * Key of script name. 
+ */
+define("LCORE_MAIN_PARAMETERS_SYS_SCRIPT_NAME", "SCRIPT_NAME");
+
 /* Parameters. Finish. */
 
 /* Other. Start. */
@@ -467,7 +477,7 @@ function lcore_get_descriptors($path) {
 	}
 	$dir = dir($path);	
 	while (false !== ($entry = $dir->read())) {
-		if($entry !== LCORE_DOT && $entry !== LCORE_DOT2) {			
+		if($entry !== LCORE_DOT && $entry !== LCORE_DOT2 && $entry[0] !== LCORE_DOT) {			
 			$result[$entry] = array();
 			$result[$entry][LCORE_DESCRIPTOR_KEY] = $entry;			
 			$result[$entry][LCORE_DESCRIPTOR_PATH] = $path.LCORE_SLASH.$entry;						
@@ -544,7 +554,8 @@ function lcore_dispatch() {
 	$session_data = array(
 		LCORE_MAIN_PARAMETERS_THEME => lcore_theme(),
 		LCORE_MAIN_PARAMETERS_THEMES => LCORE_PLUGINS_PATH_THEMES,
-		LCORE_MAIN_PARAMETERS_QUERY_PARAMETERS => $query_parameters
+		LCORE_MAIN_PARAMETERS_QUERY_PARAMETERS => $query_parameters,
+		LCORE_MAIN_PARAMETERS_SCRIPT_NAME => $_SERVER[LCORE_MAIN_PARAMETERS_SYS_SCRIPT_NAME]
 	);
 	$call_parameters = array(
 		LCORE_MAIN_PARAMETERS_COMMON => array(
