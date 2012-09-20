@@ -52,6 +52,16 @@ define("LCORE_EQUAL", "=");
  */
 define("LCORE_XML", ".xml");
 
+/**
+ * Represents "Content-type". 
+ */
+define("LCORE_CONTENT_TYPE", "Content-type");
+
+/**
+ * Represents ":". 
+ */
+define("LCORE_COLON", ":");
+
 /* Base. Finish.*/
 
 /* Common. Start.*/
@@ -187,6 +197,11 @@ define("LCORE_ENTITY_KEY", "e");
  * Key of result for text data. 
  */
 define("LCORE_PLUGIN_RESULT_TEXT", "text");
+
+/**
+ * Key of result for json data. 
+ */
+define("LCORE_PLUGIN_RESULT_JSON", "application/json");
 
 /**
  * Locale key in query. 
@@ -564,7 +579,14 @@ function lcore_dispatch() {
 			),
 		LCORE_MAIN_PARAMETERS_IN => array(),
 		LCORE_MAIN_PARAMETERS_CALLBACK => array());
-	echo lcore_get_text_from_data(lcore_d($e.LCORE__.LCORE_PLUGIN_FUNCTION_EXECUTE, $call_parameters));		
+	$d = lcore_d($e.LCORE__.LCORE_PLUGIN_FUNCTION_EXECUTE, $call_parameters);
+	$result = lcore_get_text_from_data($d); 
+	if(strlen($result) > 0) echo $result;
+	else {
+		$result = lcore_get_json_from_data($d);		
+		header(LCORE_CONTENT_TYPE.LCORE_COLON." ".LCORE_PLUGIN_RESULT_JSON);
+		echo $result;
+	} 		 
 }
 
 /**
@@ -587,10 +609,29 @@ function lcore_get_text_from_data($data) {
 		foreach ($r_v as $k => $v) {
 			if($k === LCORE_PLUGIN_RESULT_TEXT) {
 				$result = $result.$v;
+			} elseif ($k === LCORE_PLUGIN_RESULT_JSON) {
+				return "";
 			}
 		}
 	}
 	return $result;
+}
+
+/**
+ * Returns json data from result of plugin call.
+ * @param $data data.
+ * @return json.
+ */
+function lcore_get_json_from_data($data) {
+	$result = array();
+	foreach ($data as $r_k => $r_v) {
+		foreach ($r_v as $k => $v) {
+			if($k === LCORE_PLUGIN_RESULT_JSON) {
+				array_push($result, $v);
+			}
+		}
+	}
+	return json_encode($result);
 }
 
 /**
