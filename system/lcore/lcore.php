@@ -96,6 +96,16 @@ define("LCORE_DEFAULT_PLUGIN", "default_plugin");
  */
 define("LCORE_DEFAULT_THEME", "default_theme");
 
+/**
+ * Key of framework settings. 
+ */
+define("LCORE_DATA_SESSION_SETTINGS", "settings");
+
+/**
+ * Key of locale. 
+ */
+define("LCORE_DATA_SESSION_SETTINGS_LOCALE", "locale");
+
 /* Common. Finish.*/
 
 /* Plugins. Start.*/
@@ -329,6 +339,8 @@ function lcore_go() {
 function lcore_start() {
 	$_SESSION[LCORE_DATA] = array(LCORE_PLUGINS => array());
 	$_SESSION[LCORE_DATA][LCORE_PLUGINS_TEMPLATES] = array();
+	$_SESSION[LCORE_DATA][LCORE_DATA_SESSION_SETTINGS] = 
+		array(LCORE_DATA_SESSION_SETTINGS_LOCALE => "");	
 	lcore_plugins_load();
 	lcore_plugins_include();
 	$_SESSION[LCORE_DATA][LCORE_PLUGINS_START_DATA] = 
@@ -664,10 +676,14 @@ function lcore_theme() {
  */
 function lcore_locale() {
 	$v = lcore_get_query_parameter(LCORE_LOCALE_KEY);
-	if($v === null) {
-		$v = "";
+	if($v === null || strlen($v) <= 0) {		
+		$v = $_SESSION[LCORE_DATA][LCORE_DATA_SESSION_SETTINGS][LCORE_DATA_SESSION_SETTINGS_LOCALE];
 	}	
 	return $v;
+}
+
+function lcore_change_locale($locale) {
+	$_SESSION[LCORE_DATA][LCORE_DATA_SESSION_SETTINGS][LCORE_DATA_SESSION_SETTINGS_LOCALE] = $locale;	
 }
 
 /* lcore. Session Functions. Finish. */
@@ -727,7 +743,7 @@ function lcore_get_resource_by_set($set, $l, $key) {
  */
 function lcore_get_resource($path, $key) {	
 	if(!file_exists($path)) {
-		continue;
+		return null;
 	}
 	$xml = simplexml_load_file($path);
 	foreach($xml as $child)
