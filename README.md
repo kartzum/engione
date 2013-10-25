@@ -47,17 +47,17 @@ A plugin can send message through the framework and receive answer in an executi
 Templates
 -----------
 
-Templates are just html files and contain special tags start with <% and end with %>.
-- 'd': function of data binding (<%d(parameter%>).
-- 'i': include function (<%i(template,parameter%>).
-- 'ir': include function with repeat (<%ir(template,parameter%>).
-- 'pt': include function of template (<%pt(parameter%>).
-- 'c': call function <%c(function,parameter)%>.
-- 'ct': call plugin with text answer <%ct(plugin_function,parameter)%>.
+Templates are just html files and contain special tags start with <% and end with %>
+- 'd': function of data binding (<%d(parameter%>)
+- 'i': include function (<%i(template,parameter%>)
+- 'ir': include function with repeat (<%ir(template,parameter%>)
+- 'pt': include function of template (<%pt(parameter%>)
+- 'c': call function <%c(function,parameter)%>
+- 'ct': call plugin with text answer <%ct(plugin_function,parameter)%>
 
 Query parameters: 
 
-- u: command to the framework, u=r - reset the framework.
-- e: plugin name.
-- l: locale code.
-- a: area code.
+- u: command to the framework, u=r - reset the framework
+- e: plugin name
+- l: locale code
+- a: area code
