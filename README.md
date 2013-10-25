@@ -57,7 +57,7 @@ Templates are just html files and contain special tags start with <% and end wit
 
 Query parameters: 
 
-- u: command to the framework, u=r ? reset the framework.
+- u: command to the framework, u=r - reset the framework.
 - e: plugin name.
 - l: locale code.
 - a: area code.
